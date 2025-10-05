@@ -1,9 +1,10 @@
-<div class="layout-content-container flex flex-col w-full max-w-2xl flex-1 bg-white dark:bg-background-dark shadow-lg rounded-xl p-6 md:p-8 mx-auto">
-  <div class="flex flex-wrap justify-between gap-3 pb-6 border-b border-gray-200 dark:border-gray-700">
-    <p class="text-gray-800 dark:text-white text-2xl md:text-3xl font-bold tracking-tight">Registrar Nuevo Dueño</p>
-  </div>
+<div class="flex-grow">
+  <div class="flex min-w-72 flex-col gap-2">
+        <h1 class="text-2xl font-bold">
+            Registrar Nuevo Dueño</h1>
+        </div>
 
-  <div class="flex flex-col gap-6 pt-6">
+  <div class="flex flex-col gap-6 pt-2">
     <div class="flex flex-col gap-4">
       <label class="flex flex-col w-full">
         <p class="text-gray-700 dark:text-gray-300 text-base font-medium pb-2">Nombre Completo*</p>
@@ -37,7 +38,7 @@
     </div>
   </div>
 
-  <div class="flex flex-col md:flex-row justify-end gap-4 pt-8">
+  <div class="flex flex-col md:flex-row justify-end gap-4 pt-4">
     <a href="#" data-page="duenos.html"
        class="px-6 h-12 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition">
       Cancelar
