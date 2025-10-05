@@ -114,7 +114,7 @@ $citas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   <div class="flex flex-col lg:flex-row gap-8">
 
-```
+
 <!-- Calendario (columna izquierda) -->
 <div class="w-full lg:w-1/3">
   <div class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 rounded-xl border border-gray-200 dark:border-gray-700">
