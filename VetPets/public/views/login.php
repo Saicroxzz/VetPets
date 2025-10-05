@@ -105,13 +105,7 @@ $mensaje = "";
                                     <span class="truncate">Iniciar Sesión</span>
                                 </button>
 
-                                <div class="text-center mt-4">
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">
-                                        ¿No tienes una cuenta? <a
-                                            class="font-medium text-secondary-blue hover:underline"
-                                            href="config/register.php">Regístrate</a>
-                                    </p>
-                                </div>
+                            
                             </div>
                         </div>
                     </div>
