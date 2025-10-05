@@ -44,10 +44,10 @@
     <aside class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 shadow-md">
       <div class="flex items-center justify-center h-20 border-b dark:border-gray-700">
         <div class="flex items-center gap-4 text-primary">
-                    <span class="material-symbols-outlined text-4xl">pets</span>
-                    <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-text-light dark:text-text-dark">
-                        VetPets</h2>
-                </div>
+          <span class="material-symbols-outlined text-4xl">pets</span>
+          <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-text-light dark:text-text-dark">
+            VetPets</h2>
+        </div>
       </div>
       <nav class="flex-1 px-4 py-6">
         <a href="#" data-page="gestion_duenos.php"
@@ -74,7 +74,7 @@
     </aside>
 
     <!-- Main -->
-    <main id="main-content" class="flex-1 p-6 md:p-10">
+    <main id="main-content" class="flex-1 min-w-0 p-6 md:p-10">
       <!-- Aquí se cargará dinámicamente el contenido -->
     </main>
   </div>
@@ -98,13 +98,15 @@
       }
 
       // Listeners para cada link
-      links.forEach(link => {
-        link.addEventListener("click", (e) => {
+      document.addEventListener("click", function (e) {
+        const link = e.target.closest("a[data-page]"); // busca si se hizo click en un <a data-page>
+        if (link) {
           e.preventDefault();
           const page = link.getAttribute("data-page");
           loadPage(page);
-        });
+        }
       });
+
 
       // Cargar por defecto la primera sección (ej: Dueños)
       loadPage("gestion_duenos.php");
