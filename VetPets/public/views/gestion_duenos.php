@@ -3,7 +3,7 @@
 include '../../config/config.php';
 
 // Traer todos los dueños
-$stmt = $pdo_con->prepare("SELECT cedula, nombre, correo, telefono FROM cliente ORDER BY cedula DESC");
+$stmt = $pdo_con->prepare("SELECT id_dueno, nombre, apellido, correo, telefono, direccion, id_sede FROM dueno ORDER BY id_dueno DESC");
 $stmt->execute();
 $duenos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -20,38 +20,6 @@ $duenos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
     <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col">
-            <div class="p-6 text-xl font-bold text-primary">Clínica Vet</div>
-            <nav class="flex-1 px-4 space-y-2">
-                <a href="dashboard.php"
-                    class="flex items-center gap-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <span class="material-symbols-outlined">dashboard</span> Resumen
-                </a>
-                <a href="duenos.php"
-                    class="flex items-center gap-2 p-2 rounded bg-gray-200 dark:bg-gray-700 font-semibold">
-                    <span class="material-symbols-outlined">groups</span> Dueños
-                </a>
-                <a href="mascotas.php"
-                    class="flex items-center gap-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <span class="material-symbols-outlined">pets</span> Mascotas
-                </a>
-                <a href="citas.php"
-                    class="flex items-center gap-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <span class="material-symbols-outlined">event</span> Citas
-                </a>
-                <a href="sucursales.php"
-                    class="flex items-center gap-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700">
-                    <span class="material-symbols-outlined">store</span> Sucursales
-                </a>
-            </nav>
-            <div class="p-4">
-                <a href="../logout.php"
-                    class="flex items-center gap-2 p-2 rounded hover:bg-red-100 dark:hover:bg-red-700 text-red-600">
-                    <span class="material-symbols-outlined">logout</span> Cerrar Sesión
-                </a>
-            </div>
-        </aside>
 
         <!-- Main -->
         <main class="flex-1 p-6">

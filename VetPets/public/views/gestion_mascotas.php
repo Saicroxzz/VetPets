@@ -42,44 +42,14 @@
         <div class="layout-container flex h-full grow flex-col">
             <div class="flex flex-1 justify-center py-5">
                 <div class="layout-content-container flex flex-col max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
-                    <header
-                        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-4 py-3">
-                        <div class="flex items-center gap-4 text-text-light dark:text-text-dark">
-                            <div class="size-8 text-primary">
-                                <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_6_330)">
-                                        <path clip-rule="evenodd"
-                                            d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z"
-                                            fill="currentColor" fill-rule="evenodd"></path>
-                                    </g>
-                                    <defs>
-                                        <clippath id="clip0_6_330">
-                                            <rect fill="white" height="48" width="48"></rect>
-                                        </clippath>
-                                    </defs>
-                                </svg>
-                            </div>
-                            <h2 class="text-xl font-bold leading-tight tracking-[-0.015em]">Veterinary Platform</h2>
-                        </div>
-                        <div class="flex flex-1 justify-end gap-8 items-center">
-                            <div class="hidden md:flex items-center gap-9">
-                                <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                                    href="#">Dashboard</a>
-                                <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                                    href="#">Citas</a>
-                                <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                                    href="#">Clientes</a>
-                            </div>
-                            <button
-                                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                                <span class="truncate">Registrar Nueva Mascota</span>
-                            </button>
-                        </div>
+                    <header class="flex justify-between items-center mb-6">
+                        <h1 class="text-2xl font-bold">Gestión de Dueños</h1>
+                        <a href="registrar_mascota.php"
+                            class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition">
+                            Registrar Nueva Mascota
+                        </a>
                     </header>
                     <main class="flex-grow mt-8">
-                        <div class="flex flex-wrap justify-between items-center gap-4 px-4 py-3">
-                            <h1 class="text-4xl font-black leading-tight tracking-[-0.033em]">Gestión de Mascotas</h1>
-                        </div>
                         <div class="px-4 py-3">
                             <label class="flex flex-col min-w-40 h-12 w-full">
                                 <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
@@ -143,13 +113,17 @@
                                                     </td>
                                                     <td class="px-4 py-2"><?= htmlspecialchars($mascota['nombre']) ?></td>
                                                     <td class="px-4 py-2 text-gray-600 dark:text-gray-400">
-                                                        <?= htmlspecialchars($mascota['especie']) ?></td>
+                                                        <?= htmlspecialchars($mascota['especie']) ?>
+                                                    </td>
                                                     <td class="px-4 py-2 text-gray-600 dark:text-gray-400">
-                                                        <?= htmlspecialchars($mascota['raza']) ?></td>
+                                                        <?= htmlspecialchars($mascota['raza']) ?>
+                                                    </td>
                                                     <td class="px-4 py-2 text-gray-600 dark:text-gray-400">
-                                                        <?= htmlspecialchars($mascota['edad']) ?> años</td>
+                                                        <?= htmlspecialchars($mascota['edad']) ?> años
+                                                    </td>
                                                     <td class="px-4 py-2 text-gray-600 dark:text-gray-400">
-                                                        <?= htmlspecialchars($mascota['dueno']) ?></td>
+                                                        <?= htmlspecialchars($mascota['dueno']) ?>
+                                                    </td>
                                                     <td class="px-4 py-2 w-32">
                                                         <div class="flex items-center gap-2">
                                                             <a href="editar_mascota.php?id=<?= $mascota['id'] ?>"

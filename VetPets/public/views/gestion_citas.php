@@ -50,39 +50,16 @@
 <body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
     <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
         <div class="layout-container flex h-full grow flex-col">
-            <header
-                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-700 px-10 py-3">
-                <div class="flex items-center gap-4 text-primary">
-                    <span class="material-symbols-outlined text-4xl">pets</span>
-                    <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-text-light dark:text-text-dark">
-                        Veterinaria</h2>
-                </div>
-                <div class="flex flex-1 justify-center gap-8">
-                    <div class="flex items-center gap-9">
-                        <a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal"
-                            href="#">Pacientes</a>
-                        <a class="text-text-light dark:text-text-dark text-sm font-medium leading-normal"
-                            href="#">Inventario</a>
-                        <a class="text-secondary text-sm font-bold leading-normal" href="#">Citas</a>
-                    </div>
-                </div>
-                <button
-                    class="flex items-center justify-center rounded-full h-10 w-10 bg-gray-100 dark:bg-gray-800 text-text-light dark:text-text-dark">
-                    <span class="material-symbols-outlined">person</span>
-                </button>
-            </header>
-            <main class="px-4 md:px-10 lg:px-20 py-5">
+            <main class="flex-1 p-6">
+                <header class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-bold">Gestión de Citas</h1>
+                    <a href="registrar_dueno.php"
+                        class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition">
+                        Registrar Nueva Cita
+                    </a>
+                </header>
                 <div class="layout-content-container flex flex-col max-w-full flex-1">
-                    <div class="flex flex-wrap justify-between gap-4 items-center mb-6">
-                        <p
-                            class="text-4xl font-black leading-tight tracking-[-0.033em] min-w-72 text-text-light dark:text-text-dark">
-                            Gestión de Citas</p>
-                        <button
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-[0.015em]">
-                            <span class="material-symbols-outlined">add</span>
-                            <span class="truncate">Crear Nueva Cita</span>
-                        </button>
-                    </div>
+                    
                     <div class="flex flex-col lg:flex-row gap-8">
                         <div class="w-full lg:w-1/3">
                             <div
