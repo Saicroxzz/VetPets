@@ -1,6 +1,6 @@
 <?php
 // Ajusta la ruta a tu config si hace falta
-include '../../config/config.php';
+include '../../../config/config.php';
 
 // --- Parámetros de filtrado ---
 $q = isset($_GET['q']) ? trim($_GET['q']) : '';

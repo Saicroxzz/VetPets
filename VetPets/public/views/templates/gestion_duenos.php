@@ -1,6 +1,6 @@
 <?php
 // Ejemplo de conexión (ajusta a tu config real)
-include '../../config/config.php';
+include '../../../config/config.php';
 
 // Traer todos los dueños
 $stmt = $pdo_con->prepare("SELECT id_dueno, nombre, apellido, correo, telefono, direccion, id_sede FROM dueno ORDER BY id_dueno DESC");

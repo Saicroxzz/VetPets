@@ -1,5 +1,5 @@
 <?php
-include '../../config/config.php';
+include '../../../config/config.php';
 ?>
 <div class="layout-content-container flex flex-col max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
     <header class="flex justify-between items-center mb-6">
