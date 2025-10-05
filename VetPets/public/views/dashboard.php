@@ -34,6 +34,14 @@
         'GRAD' 0,
         'opsz' 24
     }
+
+    .gif-footer-fixed {
+      width: 100px;
+      position: absolute;
+      left: 0px;
+      /* o left: 20px; */
+      bottom: 20px;
+    }
   </style>
 </head>
 
@@ -112,6 +120,9 @@
       loadPage("templates/gestion_duenos.php");
     });
   </script>
+<footer>
+  <img src="../resources/dog.gif" style="width: 250px; height: auto;" alt="Perrito feliz" class="gif-footer-fixed">
+</footer>
 
 </body>
 
