@@ -4,38 +4,6 @@ require_once "../../config/config.php";
 session_start();
 
 $mensaje = "";
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $usuario = trim($_POST["usuario"]);
-    $password = trim($_POST["password"]);
-
-    if (!empty($usuario) && !empty($password)) {
-        try {
-            $sql = "SELECT id_usuario, usuario, contraseña, rol 
-                    FROM Usuario 
-                    WHERE usuario = :usuario OR correo = :usuario
-                    LIMIT 1";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(["usuario" => $usuario]);
-            $user = $stmt->fetch();
-
-            if ($user && password_verify($password, $user["contraseña"])) {
-                $_SESSION["usuario_id"] = $user["id_usuario"];
-                $_SESSION["usuario"] = $user["usuario"];
-                $_SESSION["rol"] = $user["rol"];
-
-                header("Location: dashboard.php");
-                exit();
-            } else {
-                $mensaje = "❌ Usuario o contraseña incorrectos.";
-            }
-        } catch (PDOException $e) {
-            $mensaje = "Error en el login: " . $e->getMessage();
-        }
-    } else {
-        $mensaje = "⚠️ Debes llenar todos los campos.";
-    }
-}
 ?>
 <!DOCTYPE html>
 <html class="light" lang="es">
@@ -44,6 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VetPlatform - Iniciar Sesión</title>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
@@ -99,15 +70,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     cuenta</p>
                             </div>
 
-                            <form class="flex flex-col gap-6" method="POST" action="">
+                            <div class="flex flex-col gap-6">
                                 <label class="flex flex-col gap-2">
-                                    <p class="text-text-dark dark:text-white text-base font-medium">Usuario o Correo</p>
+                                    <p class="text-text-dark dark:text-white text-base font-medium">Correo</p>
                                     <div class="relative">
                                         <span
                                             class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
                                         <input
                                             class="form-input flex w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 h-14 pl-11 pr-4 text-base"
-                                            name="usuario" placeholder="tucorreo@ejemplo.com" type="text" required />
+                                            name="email" id="email" placeholder="tucorreo@ejemplo.com" type="text"
+                                            required />
                                     </div>
                                 </label>
 
@@ -118,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                             class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
                                         <input
                                             class="form-input flex w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 h-14 pl-11 pr-4 text-base"
-                                            name="password" placeholder="Ingresa tu contraseña" type="password"
-                                            required />
+                                            name="password" id="password" placeholder="Ingresa tu contraseña"
+                                            type="password" required />
                                     </div>
                                 </label>
 
@@ -128,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                         href="#">¿Olvidaste tu contraseña?</a>
                                 </div>
 
-                                <button type="submit"
+                                <button id="loginBtn"
                                     class="flex w-full items-center justify-center rounded-lg h-14 px-5 bg-primary-soft hover:bg-opacity-90 text-text-dark text-base font-bold tracking-[0.015em] transition-colors">
                                     <span class="truncate">Iniciar Sesión</span>
                                 </button>
@@ -140,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                             href="config/register.php">Regístrate</a>
                                     </p>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
 
@@ -153,6 +125,62 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("loginBtn").addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            if (!email || !password) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Campos incompletos",
+                    text: "Por favor, completa todos los campos."
+                });
+                return;
+            }
+
+            try {
+                const response = await fetch("../../config/auth.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "¡Bienvenido!",
+                        text: result.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "dashboard.php"; // redirige al dashboard
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: result.message
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error de conexión",
+                    text: "No se pudo contactar con el servidor"
+                });
+            }
+        });
+    </script>
+
+    </script>
+
+
 </body>
 
 </html>
