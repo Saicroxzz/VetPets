@@ -12,6 +12,7 @@ $mensaje = "";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VetPlatform - Iniciar Sesión</title>
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -35,16 +36,10 @@ $mensaje = "";
                     fontFamily: {
                         "display": ["Manrope", "sans-serif"]
                     },
-                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px" },
                 },
             },
         }
     </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
-        }
-    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display">
@@ -66,28 +61,24 @@ $mensaje = "";
                             <div class="flex flex-col gap-2 mb-8">
                                 <p class="text-2xl sm:text-3xl lg:text-4xl font-black">Bienvenido de vuelta</p>
 
-                                <p class="text-gray-500 dark:text-gray-400 text-base font-normal">Inicia sesión en tu
-                                    cuenta</p>
+                                <p class="text-gray-500 dark:text-gray-400 text-base font-normal">Inicia sesión en tu cuenta</p>
                             </div>
 
                             <div class="flex flex-col gap-6">
                                 <label class="flex flex-col gap-2">
                                     <p class="text-text-dark dark:text-white text-base font-medium">Correo</p>
                                     <div class="relative">
-                                        <span
-                                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
+                                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
                                         <input
                                             class="form-input flex w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 h-14 pl-11 pr-4 text-base"
-                                            name="email" id="email" placeholder="tucorreo@ejemplo.com" type="text"
-                                            required />
+                                            name="email" id="email" placeholder="tucorreo@ejemplo.com" type="text" required />
                                     </div>
                                 </label>
 
                                 <label class="flex flex-col gap-2">
                                     <p class="text-text-dark dark:text-white text-base font-medium">Contraseña</p>
                                     <div class="relative">
-                                        <span
-                                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
+                                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
                                         <input
                                             class="form-input flex w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 h-14 pl-11 pr-4 text-base"
                                             name="password" id="password" placeholder="Ingresa tu contraseña"
@@ -105,7 +96,12 @@ $mensaje = "";
                                     <span class="truncate">Iniciar Sesión</span>
                                 </button>
 
-                            
+                                <p class="text-center text-sm text-gray-600 mt-4">
+                                    ¿No tienes cuenta?
+                                    <button id="openRegisterModal" class="text-secondary-blue hover:underline font-semibold">
+                                        Regístrate aquí
+                                    </button>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -120,19 +116,39 @@ $mensaje = "";
         </div>
     </div>
 
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 w-full max-w-md relative">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-2xl font-bold mb-6 text-center">Registrar nueva cuenta</h2>
+            
+            <div class="flex flex-col gap-4">
+                <input id="regUsuario" type="text" placeholder="Usuario"
+                    class="w-full border rounded-lg p-3 bg-gray-50 dark:bg-gray-700" required>
+                <input id="regCorreo" type="email" placeholder="Correo institucional"
+                    class="w-full border rounded-lg p-3 bg-gray-50 dark:bg-gray-700" required>
+                <input id="regContrasena" type="password" placeholder="Contraseña"
+                    class="w-full border rounded-lg p-3 bg-gray-50 dark:bg-gray-700" required>
+                <input id="regSede" type="number" placeholder="ID de sede"
+                    class="w-full border rounded-lg p-3 bg-gray-50 dark:bg-gray-700" required>
+                
+                <button id="registerBtn"
+                    class="w-full bg-primary-soft hover:bg-primary text-text-dark font-semibold rounded-lg py-3 mt-2 transition-colors">
+                    Registrar
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // --- LOGIN ---
         document.getElementById("loginBtn").addEventListener("click", async function (e) {
             e.preventDefault();
-
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
             if (!email || !password) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Campos incompletos",
-                    text: "Por favor, completa todos los campos."
-                });
+                Swal.fire({ icon: "warning", title: "Campos incompletos", text: "Por favor, completa todos los campos." });
                 return;
             }
 
@@ -152,29 +168,58 @@ $mensaje = "";
                         text: result.message,
                         timer: 2000,
                         showConfirmButton: false
-                    }).then(() => {
-                        window.location.href = "dashboard.php"; // redirige al dashboard
-                    });
+                    }).then(() => window.location.href = "dashboard.php");
                 } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: result.message
-                    });
+                    Swal.fire({ icon: "error", title: "Error", text: result.message });
                 }
             } catch (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error de conexión",
-                    text: "No se pudo contactar con el servidor"
+                Swal.fire({ icon: "error", title: "Error de conexión", text: "No se pudo contactar con el servidor" });
+            }
+        });
+
+        // --- MODAL REGISTRO ---
+        const modal = document.getElementById("registerModal");
+        document.getElementById("openRegisterModal").onclick = () => modal.classList.remove("hidden");
+        document.getElementById("closeModal").onclick = () => modal.classList.add("hidden");
+
+        // --- REGISTRO DE USUARIO ---
+        document.getElementById("registerBtn").addEventListener("click", async function () {
+            const usuario = document.getElementById("regUsuario").value;
+            const correo = document.getElementById("regCorreo").value;
+            const contrasena = document.getElementById("regContrasena").value;
+            const id_sede = document.getElementById("regSede").value;
+
+            if (!usuario || !correo || !contrasena || !id_sede) {
+                Swal.fire({ icon: "warning", title: "Campos incompletos", text: "Por favor, completa todos los campos." });
+                return;
+            }
+
+            try {
+                const response = await fetch("../../config/register.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ usuario, correo, contrasena, id_sede })
                 });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuario registrado",
+                        text: result.message,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    modal.classList.add("hidden");
+                } else {
+                    Swal.fire({ icon: "error", title: "Error", text: result.message });
+                }
+            } catch (error) {
+                Swal.fire({ icon: "error", title: "Error de conexión", text: "No se pudo contactar con el servidor" });
             }
         });
     </script>
 
-    </script>
-
-
 </body>
-
 </html>
