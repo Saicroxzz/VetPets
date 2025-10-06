@@ -89,11 +89,11 @@ if (!isset($_SESSION['id_usuario'])) {
           Citas
         </a>
 
-        <a href="#" data-page="templates/gestion_sucursales.php"
+        <!-- <a href="#" data-page="templates/gestion_sucursales.php"
           class="menu-link flex items-center gap-3 px-4 py-3 mt-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition">
           <span class="material-symbols-outlined text-secondary">location_on</span>
           Sucursales
-        </a>
+        </a> -->
 
         <!-- 🔹 Botón de Cerrar sesión (debajo de sucursales) -->
         <a href="#" id="logout-btn"
