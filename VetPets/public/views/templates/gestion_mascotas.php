@@ -83,7 +83,7 @@ include '../../../config/config.php';
                                 <td class="px-4 py-2 text-gray-600 dark:text-gray-400">
                                     <?= htmlspecialchars($mascota['dueno']) ?>
                                 </td>
-                                <td class="px-4 py-2 w-32">
+                                <!-- <td class="px-4 py-2 w-32">
                                     <div class="flex items-center gap-2">
                                         <a href="editar_mascota.php?id=<?= $mascota['id_mascota'] ?>"
                                             class="text-secondary hover:text-secondary/80">
@@ -94,7 +94,7 @@ include '../../../config/config.php';
                                             <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
-                                </td>
+                                </td>-->
                             </tr>
                         <?php endforeach;
                     else: ?>
