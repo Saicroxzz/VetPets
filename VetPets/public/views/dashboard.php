@@ -125,9 +125,13 @@ if (!isset($_SESSION['id_usuario'])) {
         .then(data => {
           mainContent.innerHTML = data;
 
-
+          //initializers javascript for includes regist
           if (page === "templates/registro_dueno.php") {
             initRegistrarDueno();
+          }
+
+          if (page === "templates/registro_mascota.php") {
+            initRegistrarMascota();
           }
         })
         .catch(err => {
@@ -144,6 +148,23 @@ if (!isset($_SESSION['id_usuario'])) {
         loadPage(page);
       }
     });
+
+    const logoutBtn = document.getElementById("logout-btn");
+    logoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      try {
+        const res = await fetch("templates/logout_temp.php", { method: "POST" });
+        const data = await res.json();
+        if (data.status === "success") {
+          window.location.href = "login.php"; // 🔹 redirige al login (misma carpeta)
+        } else {
+          alert("Error al cerrar sesión");
+        }
+      } catch (err) {
+        console.error("Error al cerrar sesión:", err);
+      }
+    });
+
 
     function initRegistrarDueno() {
       const form = document.getElementById("form-dueno");
@@ -183,7 +204,6 @@ if (!isset($_SESSION['id_usuario'])) {
         }
         var id_sede = 1;
 
-        console.log("enviando");
         try {
           const response = await fetch("../duenos/add.php", {
             method: "POST",
@@ -207,25 +227,59 @@ if (!isset($_SESSION['id_usuario'])) {
       });
     }
 
-    const logoutBtn = document.getElementById("logout-btn");
-    logoutBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      try {
-        const res = await fetch("templates/logout_temp.php", { method: "POST" });
-        const data = await res.json();
-        if (data.status === "success") {
-          window.location.href = "login.php"; // 🔹 redirige al login (misma carpeta)
-        } else {
-          alert("Error al cerrar sesión");
+
+    function initRegistrarMascota() {
+      const form = document.getElementById("form-mascota");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Obtener valores
+        const nombre = document.getElementById("nombre").value.trim();
+        const especie = document.getElementById("especie").value.trim();
+        const raza = document.getElementById("raza").value.trim();
+        const edad = document.getElementById("edad").value.trim();
+        const sexo = document.getElementById("sexo").value.trim();
+        const id_dueno = document.getElementById("id_dueno").value.trim();
+        const id_sede = document.getElementById("id_sede").value.trim();
+
+        // Validaciones
+        if (!nombre || !especie || !raza || !edad || !sexo || !id_dueno || !id_sede) {
+          Swal.fire("Error", "Todos los campos son obligatorios", "error");
+          return;
         }
-      } catch (err) {
-        console.error("Error al cerrar sesión:", err);
-      }
-    });
+
+        if (parseInt(edad) < 0 || isNaN(parseInt(edad))) {
+          Swal.fire("Error", "La edad debe ser un número válido mayor o igual a 0", "error");
+          return;
+        }
+
+        try {
+          const response = await fetch("../mascotas/add.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nombre, especie, raza, edad, sexo, id_dueno, id_sede })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            Swal.fire("Éxito", result.message, "success").then(() => {
+              loadPage("templates/gestion_mascotas.php");
+            });
+          } else {
+            Swal.fire("Error", result.message || "Hubo un problema", "error");
+          }
+        } catch (error) {
+          Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+          console.error("Error al enviar el formulario:", error);
+        }
+      });
+    }
 
   </script>
 
-  <!-- 🐾 GIF -->
   <footer>
     <img src="../resources/dog.gif" alt="Perrito feliz" class="w-64 gif-footer-fixed">
   </footer>
