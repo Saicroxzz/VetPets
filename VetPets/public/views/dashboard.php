@@ -409,6 +409,39 @@ if (!isset($_SESSION['id_usuario'])) {
 
     }
 
+
+    async function deleteDueno(id, nombre) {
+      const result = await Swal.fire({
+        title: "¿Eliminar dueño?",
+        text: `Se eliminará el dueño "${nombre}"`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "rgba(206, 124, 124, 1)",
+        cancelButtonColor: "#606c78ff",
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+      });
+
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`../duenos/delete.php?id=${id}`, { method: "GET" });
+          const data = await response.json();
+
+          if (data.success) {
+            Swal.fire("Eliminado", data.message, "success").then(() => {
+              loadPage("templates/gestion_duenos.php");
+            });
+          } else {
+            Swal.fire("Error", data.message || "No se pudo eliminar", "error");
+          }
+        } catch (err) {
+          console.error(err);
+          Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+        }
+      }
+    }
+
+    
   </script>
   <footer>
     <img src="../resources/dog.gif" alt="Perrito feliz" class="w-64 gif-footer-fixed">

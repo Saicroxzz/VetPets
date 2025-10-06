@@ -52,11 +52,11 @@ $duenos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <span class="material-symbols-outlined">edit</span>
                                     </a>
 
-                                    <a href="eliminar_dueno.php?id=<?= $dueno['id_dueno'] ?>"
-                                        onclick="return confirm('¿Seguro que deseas eliminar este dueño?')"
-                                        class="text-red-500 hover:text-red-400">
+                                    <a href="#" class="text-red-500 hover:text-red-400 btn-eliminar-dueno"
+                                        onclick="deleteDueno(<?= $dueno['id_dueno'] ?>, '<?= htmlspecialchars($dueno['nombre']) ?>')">
                                         <span class="material-symbols-outlined">delete</span>
                                     </a>
+
                                 </div>
                             </td>
                         </tr>
