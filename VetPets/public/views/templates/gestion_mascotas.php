@@ -108,24 +108,4 @@ include '../../../config/config.php';
             </table>
         </div>
     </div>
-    <div class="flex items-center justify-center p-4">
-        <a class="flex size-10 items-center justify-center text-text-light dark:text-text-dark hover:text-primary"
-            href="#">
-            <span class="material-symbols-outlined">chevron_left</span>
-        </a>
-        <a class="text-sm font-bold leading-normal tracking-[0.015em] flex size-10 items-center justify-center rounded-full bg-primary/20 text-primary"
-            href="#">1</a>
-        <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full hover:bg-primary/10 text-text-light dark:text-text-dark"
-            href="#">2</a>
-        <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full hover:bg-primary/10 text-text-light dark:text-text-dark"
-            href="#">3</a>
-        <span
-            class="text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full text-text-light dark:text-text-dark">...</span>
-        <a class="text-sm font-normal leading-normal flex size-10 items-center justify-center rounded-full hover:bg-primary/10 text-text-light dark:text-text-dark"
-            href="#">10</a>
-        <a class="flex size-10 items-center justify-center text-text-light dark:text-text-dark hover:text-primary"
-            href="#">
-            <span class="material-symbols-outlined">chevron_right</span>
-        </a>
-    </div>
 </main>
