@@ -133,6 +133,10 @@ if (!isset($_SESSION['id_usuario'])) {
           if (page === "templates/registro_mascota.php") {
             initRegistrarMascota();
           }
+
+          if (page === "templates/registro_cita.php") {
+            initRegistrarCita();
+          }
         })
         .catch(err => {
           mainContent.innerHTML = "<p class='text-red-500'>Error al cargar la página.</p>";
@@ -267,6 +271,68 @@ if (!isset($_SESSION['id_usuario'])) {
           if (result.success) {
             Swal.fire("Éxito", result.message, "success").then(() => {
               loadPage("templates/gestion_mascotas.php");
+            });
+          } else {
+            Swal.fire("Error", result.message || "Hubo un problema", "error");
+          }
+        } catch (error) {
+          Swal.fire("Error", "No se pudo conectar con el servidor", "error");
+          console.error("Error al enviar el formulario:", error);
+        }
+      });
+    }
+
+    function initRegistrarCita() {
+      const form = document.getElementById("form-cita");
+      if (!form) return;
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        // Obtener valores
+        const fecha_cita = document.getElementById("fecha_cita_nc").value.trim();
+        const hora_cita = document.getElementById("hora_cita_nc").value.trim();
+        const motivo = document.getElementById("motivo_nc").value.trim();
+        const estado = document.getElementById("estado_nc").value.trim();
+        const id_mascota = document.getElementById("id_mascota_nc").value.trim();
+        const id_dueno = document.getElementById("id_dueno_nc").value.trim();
+        const id_usuario = document.getElementById("id_usuario_nc").value.trim();
+        const id_sede = document.getElementById("id_sede_nc").value.trim();
+
+        // Validaciones
+        if (!fecha_cita || !hora_cita || !motivo || !estado || !id_mascota || !id_dueno || !id_usuario || !id_sede) {
+          Swal.fire("Error", "Todos los campos son obligatorios", "error");
+          return;
+        }
+
+        // Validar que fecha+hora formen una fecha válida
+        const dateTimeStr = `${fecha_cita}T${hora_cita}`;
+        if (isNaN(Date.parse(dateTimeStr))) {
+          Swal.fire("Error", "La fecha o la hora no son válidas", "error");
+          return;
+        }
+
+        try {
+          const response = await fetch("../citas/add.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fecha_cita,
+              hora_cita,
+              motivo,
+              estado,
+              id_mascota,
+              id_dueno,
+              id_usuario,
+              id_sede
+            })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            Swal.fire("Éxito", result.message, "success").then(() => {
+              loadPage("templates/gestion_citas.php");
             });
           } else {
             Swal.fire("Error", result.message || "Hubo un problema", "error");

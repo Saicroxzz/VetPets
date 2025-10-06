@@ -11,7 +11,7 @@ $citas = $list_citas;
 
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold">Gestión de Citas</h1>
-    <a href="#" data-page="registro_cita.php"
+    <a href="#" data-page="templates/registro_cita.php"
        class="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary/90 transition">
       Registrar Nueva Cita
     </a>
