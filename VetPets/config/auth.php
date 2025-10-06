@@ -2,8 +2,8 @@
 header("Content-Type: application/json");
 session_start();
 
-// Incluir conexión (ajusta la ruta según tu estructura /config/db.php)
-require_once __DIR__ . "/../config/config.php";
+// Incluir conexión
+require_once __DIR__ . "/config.php";
 
 $input = json_decode(file_get_contents("php://input"), true);
 
@@ -20,11 +20,11 @@ $password = trim($input['password']);
 
 try {
     // Buscar usuario por correo
-    $stmt = $pdo_con->prepare("SELECT id_usuario, usuario, correo, password_hash, rol FROM usuario WHERE correo = :email LIMIT 1");
+    $stmt = $pdo_con->prepare("SELECT id_usuario, usuario, correo, contrasena, rol FROM usuario WHERE correo = :email LIMIT 1");
     $stmt->execute([":email" => $email]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuario && password_verify($password, $usuario['password_hash'])) {
+    if ($usuario && password_verify($password, $usuario['contrasena'])) {
         // Guardar en sesión
         $_SESSION['id_usuario'] = $usuario['id_usuario'];
         $_SESSION['usuario'] = $usuario['usuario'];
@@ -34,9 +34,9 @@ try {
             "success" => true,
             "message" => "Login correcto",
             "user" => [
-                "id" => $usuario['id'],
-                "nombre" => $usuario['nombre'],
-                "email" => $usuario['email'],
+                "id" => $usuario['id_usuario'],
+                "usuario" => $usuario['usuario'],
+                "correo" => $usuario['correo'],
                 "rol" => $usuario['rol'] ?? "usuario"
             ]
         ]);
