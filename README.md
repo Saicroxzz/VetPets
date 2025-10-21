@@ -147,7 +147,7 @@ INSERT INTO cita (fecha, hora, motivo) VALUES ('2025-10-10', '10:00:00', 'Cheque
 
 ---
 
-## 📸 Capturas sugeridas
+## 📸 Capturas
 <img width="516" height="243" alt="image" src="https://github.com/user-attachments/assets/50727ec7-aff3-4651-a435-d87d2d980cd3" />
 <img width="517" height="247" alt="image" src="https://github.com/user-attachments/assets/036ad08b-8044-4e28-bca2-f90bb3c063b6" />
 <img width="519" height="248" alt="image" src="https://github.com/user-attachments/assets/e9f61fdd-8458-4875-9c7b-adc291b9bba0" />
